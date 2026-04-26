@@ -24,3 +24,15 @@ private:
         n->left = n->right = n->parent = NULL;
         return n;
     }
+
+    Node* insertBST(Node* r, Node* n) {
+        if (!r) return n;
+        if (n->data < r->data) {
+            r->left = insertBST(r->left, n);
+            r->left->parent = r;
+        } else if (n->data > r->data) {
+            r->right = insertBST(r->right, n);
+            r->right->parent = r;
+        }
+        return r;
+    }
