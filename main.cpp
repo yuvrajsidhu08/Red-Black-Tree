@@ -5,6 +5,7 @@ using namespace std;
 
 enum Color { RED, BLACK };
 
+// Node structure
 struct Node {
     int data;
     Color color;
@@ -17,6 +18,7 @@ class RBTree {
 private:
     Node* root;
 
+    // create new node
     Node* create(int v) {
         Node* n = new Node;
         n->data = v;
@@ -25,6 +27,7 @@ private:
         return n;
     }
 
+    // normal BST insert
     Node* insertBST(Node* r, Node* n) {
         if (!r) return n;
         if (n->data < r->data) {
@@ -37,6 +40,7 @@ private:
         return r;
     }
 
+    // left rotation
     void leftRotate(Node*& r, Node*& x) {
         Node* y = x->right;
         x->right = y->left;
@@ -51,6 +55,7 @@ private:
         x->parent = y;
     }
 
+    // right rotation
     void rightRotate(Node*& r, Node*& x) {
         Node* y = x->left;
         x->left = y->right;
@@ -65,6 +70,7 @@ private:
         x->parent = y;
     }
 
+    // fix red-black violations
     void fix(Node*& r, Node*& x) {
         while (x != r && x->parent->color == RED) {
             Node* p = x->parent;
@@ -113,6 +119,7 @@ private:
         r->color = BLACK;
     }
 
+    // print tree sideways
     void printTree(Node* r, int space) {
         if (!r) return;
         space += 8;
@@ -129,6 +136,7 @@ private:
 public:
     RBTree() { root = NULL; }
 
+    // add a value
     void add(int v) {
         if (v < 1 || v > 999) return;
         Node* n = create(v);
@@ -136,6 +144,7 @@ public:
         fix(root, n);
     }
 
+    // read numbers from file
     void read(const char* name) {
         ifstream f(name);
         if (!f) return;
@@ -151,6 +160,7 @@ public:
         f.close();
     }
 
+    // print tree
     void print() {
         printTree(root, 0);
     }
@@ -160,6 +170,7 @@ int main() {
     RBTree t;
     char cmd[50];
 
+    // main program loop
     while (true) {
         cout << "\nadd | file | print | quit\n> ";
         cin >> cmd;
