@@ -125,3 +125,13 @@ private:
         cout << endl;
         printTree(r->left, space);
     }
+
+public:
+    RBTree() { root = NULL; }
+
+    void add(int v) {
+        if (v < 1 || v > 999) return;
+        Node* n = create(v);
+        root = insertBST(root, n);
+        fix(root, n);
+    }
