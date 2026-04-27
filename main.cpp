@@ -135,3 +135,50 @@ public:
         root = insertBST(root, n);
         fix(root, n);
     }
+
+    void read(const char* name) {
+        ifstream f(name);
+        if (!f) return;
+
+        char line[1000];
+        f.getline(line, 1000);
+
+        char* t = strtok(line, " ");
+        while (t) {
+            add(atoi(t));
+            t = strtok(NULL, " ");
+        }
+        f.close();
+    }
+
+    void print() {
+        printTree(root, 0);
+    }
+};
+
+int main() {
+    RBTree t;
+    char cmd[50];
+
+    while (true) {
+        cout << "\nadd | file | print | quit\n> ";
+        cin >> cmd;
+
+        if (strcmp(cmd, "add") == 0) {
+            int x;
+            cin >> x;
+            t.add(x);
+        }
+        else if (strcmp(cmd, "file") == 0) {
+            char name[100];
+            cin >> name;
+            t.read(name);
+        }
+        else if (strcmp(cmd, "print") == 0) {
+            t.print();
+        }
+        else if (strcmp(cmd, "quit") == 0) {
+            break;
+        }
+    }
+}
