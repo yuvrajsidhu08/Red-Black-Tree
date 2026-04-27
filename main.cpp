@@ -88,3 +88,40 @@ private:
                     p->color = g->color;
                     g->color = t;
                     x = p;
+                }
+            } else {
+                Node* u = g->left;
+                if (u && u->color == RED) {
+                    g->color = RED;
+                    p->color = BLACK;
+                    u->color = BLACK;
+                    x = g;
+                } else {
+                    if (x == p->left) {
+                        rightRotate(r, p);
+                        x = p;
+                        p = x->parent;
+                    }
+                    leftRotate(r, g);
+                    Color t = p->color;
+                    p->color = g->color;
+                    g->color = t;
+                    x = p;
+                }
+            }
+        }
+        r->color = BLACK;
+    }
+
+    void printTree(Node* r, int space) {
+        if (!r) return;
+        space += 8;
+        printTree(r->right, space);
+        cout << endl;
+        for (int i = 8; i < space; i++) cout << " ";
+        cout << r->data << (r->color == RED ? "R" : "B");
+        if (r->parent) cout << "(" << r->parent->data << ")";
+        else cout << "(null)";
+        cout << endl;
+        printTree(r->left, space);
+    }
